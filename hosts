@@ -1,4 +1,16 @@
 [vpn]
-
+elas1 vpn_ip=10.0.0.1 ansible_host=200.200.200.42 
+elas2 vpn_ip=10.0.0.2 ansible_host=200.200.200.43
+elas3 vpn_ip=10.0.0.3 ansible_host=200.200.200.44
+elas4 vpn_ip=10.0.0.4 ansible_host=200.200.200.45
+elas5 vpn_ip=10.0.0.5 ansible_host=200.200.200.46
 
 [removevpn]
+
+[elasticsearch_master_data_nodes]
+elas1
+elas2
+elas3
+[elasticsearch_data_nodes]
+elas4
+elas5

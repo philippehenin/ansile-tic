@@ -3,7 +3,28 @@
 - hosts: vpn
   roles:
     - tinc
+  become: true
+  become_user: root
 
 - hosts: removevpn
   roles:
     - tinc-remove
+  become: true
+  become_user: root
+
+- hosts: elasticsearch_master_data_nodes
+  roles:
+    - { role: elasticsearch, es_instance_name: "C4FR", es_config: { discovery.zen.ping.unicast.hosts: "elas1, elas2, elas3", network.host: "_tun0_, _local_", cluster.name: "production", http.port: 9200, transport.tcp.port: 9300, node.data: true, node.master: true} }
+  vars:
+    es_major_version: "5.x"
+    es_version: "5.6.3"
+    es_heap_size: "2g"
+    es_cluster_name: "production"
+- hosts: elasticsearch_data_nodes
+  roles:
+    - { role: elasticsearch, es_instance_name: "C4FR", es_config: { discovery.zen.ping.unicast.hosts: "elas1, elas2, elas3", network.host: "_tun0_, _local_", cluster.name: "production", http.port: 9200, transport.tcp.port: 9300, node.data: true, node.master: false} }
+  vars:
+    es_major_version: "5.x"
+    es_version: "5.6.3"
+    es_heap_size: "2g"
+    es_cluster_name: "production"
